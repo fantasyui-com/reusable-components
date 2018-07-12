@@ -1,0 +1,23 @@
+{
+  "name": "reusable-components",
+  "version": "1.0.0",
+  "description": "Reusable HTML components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fantasyui-com/reusable-components.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fantasyui-com/reusable-components/issues"
+  },
+  "homepage": "https://github.com/fantasyui-com/reusable-components#readme",
+  "devDependencies": {
+    "undom": "^0.4.0"
+  }
+}
