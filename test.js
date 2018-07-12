@@ -32,13 +32,20 @@ document.body.appendChild(
       c('h1.classy', 'h')),
 
     c('div#menu', { style: { float: 'left', width: '200px' } },
-			cBootstrapCard({ class:"bork", style: { float: 'left', width: '200px' },
+
+		// BEGIN COMPONENT USAGE EXAMPLE
+			cBootstrapCard({ class:"bork", style: { float: 'left', width: '200px' }},
 				c('ul',
 	        c('li', 'one'),
 	        c('li', 'two'),
 	        c('li', 'three')
-				)
+				),
+				c('div.card-title', 'Mios Dios!'),
+				c('div.card-text', 'Status: Nominal!')
 			),
+			// END COMPONENT USAGE EXAMPLE
+
+
       c('ul',
         c('li', 'one'),
         c('li', 'two'),

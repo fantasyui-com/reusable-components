@@ -1,4 +1,6 @@
 var kebabCase = require('lodash/kebabcase');
+var flatten = require('lodash/flatten');
+var compact = require('lodash/compact');
 
 module.exports = function(options){
   const isAttributes = function(o){
@@ -26,6 +28,11 @@ module.exports = function(options){
   }
 
   const c = function(nodeName='div', ...data){
+
+    data = flatten(data);
+    data = compact(data);
+    console.log(data)
+
     const attributes = new Map();
     const classes = new Set();
     const elements = [];
@@ -50,7 +57,7 @@ module.exports = function(options){
     // ATTRIBUTES
     //
 
-    Note in some cases attribute value is yet another object (styles)
+    //Note in some cases attribute value is yet another object (styles)
 
     // Extract Object Based Attributes
     data.filter(o=>isAttributes(o)).forEach(function(objectAttributes){
@@ -119,7 +126,7 @@ module.exports = function(options){
 
     // Take care of class="" ensure no dupes, etc...
     // note this behaves as if element already had some classes, future proof...
-    (element.getAttribute('class')||'').split(" ").filter(i=>i.trim()).forEach(function(class){classes.add(class)})
+    (element.getAttribute('class')||'').split(" ").filter(i=>i.trim()).forEach(function(c){classes.add(c)})
     element.setAttribute('class', Array.from(classes).join(" "))
 
     // add children, these already ran...
