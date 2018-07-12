@@ -1,6 +1,5 @@
 const c = require('.')({});
 const assert = require('assert');
-
 require('undom/register');
 
 function serialize(el) {
@@ -24,6 +23,7 @@ function enc(s) {
 }
 
 
+const cBootstrapCard = require('./components/bootstrap/card');
 
 
 document.body.appendChild(
@@ -32,10 +32,19 @@ document.body.appendChild(
       c('h1.classy', 'h')),
 
     c('div#menu', { style: { float: 'left', width: '200px' } },
+			cBootstrapCard({ class:"bork", style: { float: 'left', width: '200px' },
+				c('ul',
+	        c('li', 'one'),
+	        c('li', 'two'),
+	        c('li', 'three')
+				)
+			),
       c('ul',
         c('li', 'one'),
         c('li', 'two'),
-        c('li', 'three'))),
+        c('li', 'three')
+			)
+		 ),
 
     c('div#content', {style: {float: 'left'} },
       c('h2', 'content title'),
