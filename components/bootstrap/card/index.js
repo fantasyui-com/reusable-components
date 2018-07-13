@@ -1,13 +1,14 @@
 
 const c = require('../../../')({});
 
-module.exports = function(attributes={}, childList=[], headerList=[c('div.card-title', 'Hello!')], footerList=[]){
+// NAMED CONTENT EXAMPLE
+module.exports = function( attributes={}, content={header:[c('div.card-title', 'Hello!')], body:[], footer:[]} ){
 
   const response =
    c('div.card.card-primary', Object.assign({}, attributes),
-    c('div.card-header', headerList),
-    c('div.card-block', childList ),
-    c('div.card-footer', footerList),
+    c('div.card-header', content.header),
+    c('div.card-block', content.body ),
+    c('div.card-footer', content.footer),
   );
 
   return response;

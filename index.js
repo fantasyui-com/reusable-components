@@ -31,7 +31,7 @@ module.exports = function(options){
 
     data = flatten(data);
     data = compact(data);
-    console.log(data)
+    //console.log(data)
 
     const attributes = new Map();
     const classes = new Set();

@@ -17,10 +17,9 @@
     "url": "https://github.com/fantasyui-com/reusable-components/issues"
   },
   "homepage": "https://github.com/fantasyui-com/reusable-components#readme",
-  "devDependencies": {
-    "undom": "^0.4.0"
-  },
+  "devDependencies": {},
   "dependencies": {
+    "diff-dom": "^2.4.0",
     "lodash": "^4.17.10"
   }
 }

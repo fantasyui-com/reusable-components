@@ -1,50 +1,54 @@
-const c = require('.')({});
-const assert = require('assert');
-require('undom/register');
+const EventEmitter = require('events');
+class MyEmitter extends EventEmitter {}
 
-function serialize(el) {
-	if (el.nodeType===3) return el.textContent;
-	var name = String(el.nodeName).toLowerCase(),
-		str = '<'+name,
-		c, i;
-	for (i=0; i<el.attributes.length; i++) {
-		str += ' '+el.attributes[i].name+'="'+el.attributes[i].value+'"';
-	}
-	str += '>';
-	for (i=0; i<el.childNodes.length; i++) {
-		c = serialize(el.childNodes[i]);
-		if (c) str += '\n  '+c.replace(/\n/g,'\n  ');
-	}
-	return str + (c?'\n':'') + '</'+name+'>';
-}
-
-function enc(s) {
-	return s.replace(/[&'"<>]/g, function(a){ return `&#${a};` });
-}
-
+const configuration = { emitter: new MyEmitter() };
+const binder = require('./components/data/binder').bind(configuration); // bind this to setup object
+const c = component = require('.')(configuration); // initialize with setup object
 
 const cBootstrapCard = require('./components/bootstrap/card');
 
-
 document.body.appendChild(
-  c('div#page',
-    c('div#header',
-      c('h1.classy', 'h')),
+
+  c('div#container',
+
+		c('div#header',
+      c('h1.classy', 'h')
+		),
 
     c('div#menu', { style: { float: 'left', width: '200px' } },
 
-		// BEGIN COMPONENT USAGE EXAMPLE
-			cBootstrapCard({ class:"bork", style: { float: 'left', width: '200px' }},
-				c('ul',
-	        c('li', 'one'),
+		// BEGIN COMPONENT USAGE EXAMPLE (named content areas)
+			cBootstrapCard( { class:"bork", style: { float: 'left', width: '200px' }}, {
+				header: c('div.card-title', 'Mios Dios!'),
+				body: c('ul',
+					c('li', 'one'),
 	        c('li', 'two'),
-	        c('li', 'three')
+	        c('li', 'three'),
+					['four','five','six'].map(i=>c('li',i)),
 				),
-				c('div.card-title', 'Mios Dios!'),
-				c('div.card-text', 'Status: Nominal!')
-			),
+				footer: c('div.card-text', 'Status: Nominal!')
+			}),
 			// END COMPONENT USAGE EXAMPLE
 
+
+      // c('ul#data11.code-red',
+      //   b( '/hello/abc', (element, envelope) => element.text(envelope.data.value).attribute('data', foo).onClick() ),
+			// ),
+      c('ul#data11.code-red',
+        binder( '/hello/abc', (envelope)=>c('div.card.card-primary',
+            envelope.data.value,
+            c('input', {type:'text'}),
+            'hello',
+          )
+        ),
+			),
+
+
+      c('ul#data11.code-red',
+        c('li', 'one'),
+        c('li', 'two'),
+        c('li', 'three')
+			),
 
       c('ul',
         c('li', 'one'),
@@ -63,4 +67,21 @@ document.body.appendChild(
         "reusable, interactive html widgets. ")))
 )
 
-console.log( serialize(document) )
+
+
+
+
+
+
+let counter = 1;
+const fun = function(){
+  counter++
+	configuration.emitter.emit('/hello/abc', [
+		{meta:{ identity:'idc219000b8e8f4ea7a125ae1023cc821d', version:'3453,5756a44f3b0141d3aa5627f506181c2f',    token:'b5115bc0961247eaa6eb1dba54b204ed', deleted:false}, data:{value:'a'+counter}},
+		{meta:{ identity:'id8849201d21cb44dda43f012d89a2a101', version:'3458535,efc6d0f6f9d243539efc6c8cf63120c2', token:'699a268232dc4f139cbc3c34906dcd79', deleted:true}, data:{value:'b'+counter}},
+		{meta:{ identity:'ide4c6dc676f744fdbbd8560f0768cdb5e', version:'6458736,ef8442e28a0a473bb90a586b70557513', token:'c7df13597f4a4479befeb211fb857beb', deleted:false}, data:{value:'c'+counter}},
+	])
+
+};
+$('#go').on('click', fun)
+setInterval(fun,100);
