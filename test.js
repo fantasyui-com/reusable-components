@@ -31,6 +31,21 @@ document.body.appendChild(
 			// END COMPONENT USAGE EXAMPLE
 
 
+      // BEGIN BOUND COMPONENT USAGE EXAMPLE (named content areas)
+      binder( '/hello/abc', (envelope)=>
+  			cBootstrapCard( { class:"bork", style: { float: 'left', width: '200px' }}, {
+  				header: c('div.card-title', 'Mios Dios!'),
+  				body: c('ul',
+  					c('li', 'one'),
+  	        c('li', 'two'),
+  	        c('li', 'three'),
+  					['four','five','six'].map(i=>c('li',i)),
+  				),
+  				footer: c('div.card-text', 'Status: Nominal!')
+  			})
+      ),
+  			// END BOUND COMPONENT USAGE EXAMPLE
+
       // c('ul#data11.code-red',
       //   b( '/hello/abc', (element, envelope) => element.text(envelope.data.value).attribute('data', foo).onClick() ),
 			// ),
