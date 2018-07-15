@@ -126,9 +126,10 @@ module.exports = function(options){
 
     // Take care of class="" ensure no dupes, etc...
     // note this behaves as if element already had some classes, future proof...
-    (element.getAttribute('class')||'').split(" ").filter(i=>i.trim()).forEach(function(c){classes.add(c)})
-    element.setAttribute('class', Array.from(classes).join(" "))
-
+    if(classes.length){
+      (element.getAttribute('class')||'').split(" ").filter(i=>i.trim()).forEach(function(c){classes.add(c)})
+      element.setAttribute('class', Array.from(classes).join(" "))
+    }
     // add children, these already ran...
     elements.forEach(function(e){
       element.appendChild(e)
