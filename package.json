@@ -1,6 +1,6 @@
 {
   "name": "reusable-components",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "description": "Reusable HTML components",
   "main": "index.js",
   "scripts": {
